@@ -16,19 +16,31 @@ with open(pollingpath, "r") as input_csv_file:
     #Count the number of votes in the dataset
     votes = str(len(table_data))
 
-def election_results(voting):
+    #Candidate list for the moment - need to automate
+    cand_list = ["Khan", "Correy", "Li", "O'Tooley"]
+    
+    vote_count = cand_list.count("Khan")
+    
+    
+    number_of_votes = 0
+    for cand_list in table_data:
+        number_of_votes = str(cand_list[2])
 
-    voterid = voting[0]
-    county = voting[1]
-    candidate = voting[2]
 
-    khan = []
-    for row in csvreader:
-        if(name_to_check() == row[2].upper()):
-            election_results(row)
+    
+    # def election_results(voting):
+    #voterid = table_data[0]
+    #county = table_data[1]
+    #candidate = table_data[2]
 
-       
 
+
+#     khan = []
+#     for row in csvreader:
+#         if(name_to_check() == row[2].upper()):
+#             election_results(row)
+
+    
 
 
 
@@ -41,4 +53,6 @@ print("Election Results")
 print("--------------------------")
 print(f"Total Votes: {votes}")
 print("--------------------------")
+print(f"TEsting: {vote_count}")
+print(f"TEsting2: {number_of_votes}")
 
