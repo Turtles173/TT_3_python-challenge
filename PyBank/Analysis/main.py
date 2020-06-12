@@ -25,25 +25,23 @@ with open(budgetpath, "r", encoding = 'utf8') as input_csv_file:
     #Calculate the movements for each month
     with open(budgetpath, "r") as input_csv_file:
         lines = input_csv_file.readlines()
-    data = []
+    data_budget = []
     for line in lines[1:]: #Google-Fu moment here - don't read the first line containing month and amount
         line = line.strip("\n") #Google-Fu moment here - erase the newline character from each line
-        data.append(line.split(",")) #Google-Fu moment here - split the lines using the comma as a delimiter
+        data_budget.append(line.split(",")) #Google-Fu moment here - split the lines using the comma as a delimiter
     output = []
-    for index,element in enumerate(data[1:]): #Google-Fu moment here - start in the second element to subtract the first one
-        output.append(int(element[1])-int(data[index][1]))
+    for index,element in enumerate(data_budget[1:]): #Google-Fu moment here - start in the second element to subtract the first one
+        output.append(int(element[1])-int(data_budget[index][1]))
     average = sum(output) / len(output)
     max_move = max(output)
     min_move = min(output)
     
-    #Match the month
-    #months = (row[0])
+    #Match the month to the max_move and min_move
+    
     high_index = output.index(max_move)
     low_index = output.index(min_move)
-    #high_mth_move = months[high_index]
-    #low_mth_move = months[low_index]    
-    high_month = data[high_index + 1][0]
-    low_month = data[low_index + 1][0]
+    high_month = data_budget[high_index + 1][0]
+    low_month = data_budget[low_index + 1][0]
 
 
 print("Financial Analysis")
