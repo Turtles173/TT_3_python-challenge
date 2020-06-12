@@ -30,8 +30,8 @@ with open(budgetpath, "r", encoding = 'utf8') as input_csv_file:
         line = line.strip("\n") #Google-Fu moment here - erase the newline character from each line
         data_budget.append(line.split(",")) #Google-Fu moment here - split the lines using the comma as a delimiter
     output = []
-    for index,element in enumerate(data_budget[1:]): #Google-Fu moment here - start in the second element to subtract the first one
-        output.append(int(element[1])-int(data_budget[index][1]))
+    for index,month_after in enumerate(data_budget[1:]): #Google-Fu moment here - start in the month after the previous month to subtract the first one
+        output.append(int(month_after[1])-int(data_budget[index][1]))
     average = sum(output) / len(output)
     max_move = max(output)
     min_move = min(output)
@@ -54,16 +54,15 @@ print(f"Greatest Decrease in Profits: {low_month}  (${min_move})")
 
 #Export the file to a new text
 
-# newbudgetpath = os.path.join("Export_Results", "budget_data_results.txt")
-# with open(budgetpath, "w") as export:
+with open("budget_export.txt", "w") as text_file:
+    text_file.write("Financial Analysis\n")
+    text_file.write("--------------------------\n")
+    text_file.write(f"Total Months: {total_months}\n")
+    text_file.write(f"Total Profit & Loss: ${pandl_total}\n")
+    text_file.write(f"Average Change: ${average:.2f}\n")
+    text_file.write(f"Greatest Increase in Profits: {high_month}  (${max_move})\n")
+    text_file.write(f"Greatest Decrease in Profits: {low_month}  (${min_move})\n")
 
-#     export.write("Financial Analysis\n")
-#     export.write("--------------------------\n")
-#     export.write(f"Total Months: {total_months}\n")
-#     export.write(f"Total Profit & Loss: ${pandl_total}\n")
-#     export.write(f"Average Change: ${average:.2f}\n")
-#     export.write(f"Greatest Increase in Profits: {high_index}  (${max_move})\n")
-#     export.write(f"Greatest Decrease in Profits: {low_index}  (${min_move})\n")
 
 
 # ------------ RESOURCES AND REFERENCES FROM USED OUTSIDE OF CLASS ACTIVITIES ------------
@@ -71,4 +70,6 @@ print(f"Greatest Decrease in Profits: {low_month}  (${min_move})")
 # https://stackoverflow.com/questions/13517080/sum-a-csv-column-in-python
 # https://stackoverflow.com/questions/59494280/loop-over-csv-and-subtract-previous-line-from-current-line
 # https://stackoverflow.com/questions/23019773/locate-the-index-of-largest-value-in-an-array-python
+# https://stackoverflow.com/questions/5214578/print-string-to-text-file
+
 

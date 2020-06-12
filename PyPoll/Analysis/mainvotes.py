@@ -1,6 +1,7 @@
 import os
 import csv
 from collections import Counter
+import itertools
 
 
 # Set the path for the file
@@ -23,47 +24,57 @@ with open(pollingpath, "r") as input_csv_file:
     for row in table_data:
         candidate_names.append(row[2])
     
-    #print(candidate_names)
-
     #Add the votes per candidate
     candidate_count = Counter()
     for prospect_name in candidate_names:
         candidate_count[prospect_name] += 1
 
-    print(candidate_count)
+    #Find the winner!
+    winner = 1
+    winner_name = dict(itertools.islice(candidate_count.items(), winner))
     
-    #Calculate the percentage of each candidate
-    percent = (candidate_count / total_votes) * 100
-
-    print(percent)
-    
-    
-    
-    
-    
- 
+    #PERCENTAGE - haven't been able to extract the data from the dictionary 
+    #from the counter - I have spent a long time on that problem!  see below 
+    #just a couple of examples. I was going to insert it into the print below 
+    #as required.  That bit was straight forward.
 
 
-
-print("Election Results")
+print("ELECTION RESULTS")
 print("--------------------------")
 print(f"Total Votes: {total_votes}")
 print("--------------------------")
-# print(f"TEsting: {vote_count}")
-# print(f"TEsting2: {number_of_votes}")
+for print_details in candidate_count:
+    print("{}: {}".format(print_details,candidate_count[print_details]))
+print("--------------------------")
+print(f"Winner in a landslide: {winner_name}")
+
+#Export the file to a new text
+
+with open("polling_export.txt", "w") as text_file:
+    text_file.write("ELECTION RESULTS\n")
+    text_file.write("--------------------------\n")
+    text_file.write(f"Total Votes: {total_votes}\n")
+    text_file.write("--------------------------\n")
+    for print_details in candidate_count:
+        text_file.write("{}: {}\n".format(print_details,candidate_count[print_details]))
+    text_file.write("--------------------------\n")
+    text_file.write(f"Winner in a landslide: {winner_name}")
 
 
+#-----------------COMMENTS AND IDEAS -------------------
+#-------------------- RE PERCENTAGE --------------------
+#---------------PLEASE PROVIDE FEEDBACK-----------------
 
-#Write results to a new text file
-
-#"\n" is added to create a new line after each entry
-
-#text_file = open("Polling_Vote.txt", "w")
-
-#with open("Polling_Vote.txt", "w") as text_file:
-
-
-# text_file.close()
+    #convert the counter/dictionary to a list
+    
+    #Calculate the percentage for each candidate
+    
+    # percentage = []
+    # for perc_calc in candidate_count[1]:
+    #      percentage.append(int(perc_calc/total_votes) * 100
+    
+    # votes_to_ints = int(total_votes)
+    # percent = cand_final_votes / total_votes * 100
 
 
 
@@ -72,17 +83,8 @@ print("--------------------------")
 # https://stackoverflow.com/questions/2600191/how-can-i-count-the-occurrences-of-a-list-item
 # https://www.programiz.com/python-programming/methods/list/append
 # https://realpython.com/python-zip-function/
+# https://docs.python.org/3/library/functions.html#zip
+# https://www.codevscolor.com/python-print-key-value-dictionary/
 
 
 
-
-
-# TEsting code to hold
-
-#First try at getting names to help with the logic
-    # cand = ["Khan", "Correy", "Li", "O'Tooley"]
-
-    # for row in table_data:
-    #     cand.append(row[2])
-        
-    # candidate_count = Counter(cand)
